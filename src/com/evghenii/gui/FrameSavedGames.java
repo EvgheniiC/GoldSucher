@@ -37,7 +37,7 @@ public class FrameSavedGames extends BaseChildFrame {
         jTableGames.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(jTableGames);
 
-        jbtnLoadGame.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/javabegin/training/game/images/load_small.png"))); // NOI18N
+        jbtnLoadGame.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/evghenii/images/load_small.png"))); // NOI18N
         jbtnLoadGame.setText("Загрузить");
         jbtnLoadGame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -53,7 +53,7 @@ public class FrameSavedGames extends BaseChildFrame {
             }
         });
 
-        jbtnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/javabegin/training/game/images/delete.png"))); // NOI18N
+        jbtnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/evghenii/images/delete.png"))); // NOI18N
         jbtnDelete.setText("Удалить");
         jbtnDelete.setActionCommand("Удалить");
         jbtnDelete.addActionListener(new java.awt.event.ActionListener() {

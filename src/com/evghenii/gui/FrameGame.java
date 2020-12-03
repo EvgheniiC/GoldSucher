@@ -43,19 +43,19 @@ public class FrameGame extends BaseChildFrame implements ActionListener {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jbtnLeft.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/javabegin/training/game/images/left.png"))); // NOI18N
+        jbtnLeft.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/evghenii/images/left.png"))); // NOI18N
         jbtnLeft.setName("jbtnLeft"); // NOI18N
         jbtnLeft.addActionListener(this);
 
-        jbtnUp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/javabegin/training/game/images/up.png"))); // NOI18N
+        jbtnUp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/evghenii/images/up.png"))); // NOI18N
         jbtnUp.setName("jbtnUp"); // NOI18N
         jbtnUp.addActionListener(this);
 
-        jbtnRight.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/javabegin/training/game/images/right.png"))); // NOI18N
+        jbtnRight.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/evghenii/images/right.png"))); // NOI18N
         jbtnRight.setName("jbtnRight"); // NOI18N
         jbtnRight.addActionListener(this);
 
-        jbtnDown.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/javabegin/training/game/images/down.png"))); // NOI18N
+        jbtnDown.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/evghenii/images/down.png"))); // NOI18N
         jbtnDown.setName("jbtnDown"); // NOI18N
         jbtnDown.addActionListener(this);
 
@@ -66,13 +66,13 @@ public class FrameGame extends BaseChildFrame implements ActionListener {
         jlabelTurnsLeftText.setToolTipText("");
         jlabelTurnsLeftText.setName("jlabelTurnsLeftText"); // NOI18N
 
-        jbtnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/javabegin/training/game/images/save.png"))); // NOI18N
+        jbtnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/evghenii/images/save.png"))); // NOI18N
         jbtnSave.setText("Сохранить");
         jbtnSave.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jbtnSave.setName("jbtnUp"); // NOI18N
         jbtnSave.addActionListener(this);
 
-        jbtnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/javabegin/training/game/images/exit.png"))); // NOI18N
+        jbtnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/evghenii/images/exit.png"))); // NOI18N
         jbtnExit.setText("Выйти из игры");
         jbtnExit.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jbtnExit.setName("jbtnUp"); // NOI18N
