@@ -7,47 +7,50 @@ import javax.swing.*;
 
 public abstract class AbstractMovingObject extends AbstractGameObject implements MovingObjects {
 
-    private ImageIcon geticonLeft;
-    private ImageIcon geticonReght;
-    private ImageIcon geticonUp;
-    private ImageIcon geticonDown;
+    private ImageIcon iconLeft;
+    private ImageIcon iconReght;
+    private ImageIcon iconUp;
+    private ImageIcon iconDown;
 
     public abstract void getMoveRezult(AbstractGameObject ObjectInNewCoordinate);
 
     @Override
-    public void move(MovingDirection movingDirection) {
+    public void move(MovingDirection movingDirection) {}
 
+    public ImageIcon getIconLeft() {
+        return iconLeft;
     }
 
-    public ImageIcon getGeticonLeft() {
-        return geticonLeft;
+    public void setIconLeft(ImageIcon iconLeft) {
+        this.iconLeft = iconLeft;
     }
 
-    public void setGeticonLeft(ImageIcon geticonLeft) {
-        this.geticonLeft = geticonLeft;
+    public ImageIcon getIconReght() {
+        return iconReght;
     }
 
-    public ImageIcon getGeticonReght() {
-        return geticonReght;
+    public void setIconRight(ImageIcon iconReght) {
+        this.iconReght = iconReght;
     }
 
-    public void setGeticonReght(ImageIcon geticonReght) {
-        this.geticonReght = geticonReght;
+    public ImageIcon getIconUp() {
+        return iconUp;
     }
 
-    public ImageIcon getGeticonUp() {
-        return geticonUp;
+    public void setIconUp(ImageIcon iconUp) {
+        this.iconUp = iconUp;
     }
 
-    public void setGeticonUp(ImageIcon geticonUp) {
-        this.geticonUp = geticonUp;
+    public ImageIcon getIconDown() {
+        return iconDown;
     }
 
-    public ImageIcon getGeticonDown() {
-        return geticonDown;
+    public void setIconDown(ImageIcon iconDown) {
+        this.iconDown = iconDown;
     }
 
-    public void setGeticonDown(ImageIcon geticonDown) {
-        this.geticonDown = geticonDown;
+    @Override
+    public ImageIcon getIconRight() {
+        return null;
     }
 }

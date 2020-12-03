@@ -6,7 +6,7 @@ import com.evghenii.objects.Coordinate;
 
 import javax.swing.*;
 
-public class AbstractGameObject implements StaticObject {
+public abstract class AbstractGameObject implements StaticObject {
 
     private Coordinate coordinate;
 
@@ -14,7 +14,7 @@ public class AbstractGameObject implements StaticObject {
 
     private ImageIcon imageIcon = getImageIcon("com/evghenii/images/noicon.png");// image by default
 
-    public AbstractGameObject() {
+    protected AbstractGameObject() {
     }
 
     @Override

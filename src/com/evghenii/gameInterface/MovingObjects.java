@@ -19,12 +19,12 @@ public interface MovingObjects extends StaticObject {
 
     void goRight();*/
 
-    ImageIcon geticonLeft();
+    ImageIcon getIconLeft();
 
-    ImageIcon geticonReght();
+    ImageIcon getIconRight();
 
-    ImageIcon geticonUp();
+    ImageIcon getIconUp();
 
-    ImageIcon geticonDown();
+    ImageIcon getIconDown();
 
 }
