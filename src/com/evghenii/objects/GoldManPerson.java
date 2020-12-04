@@ -14,10 +14,10 @@ public class GoldManPerson extends AbstractMovingObject {
         super.setGameObjactType(GameObjectType.GOLDMAN);
         super.setCoordinate(coordinate);
 
-        super.setIconDown(getImageIcon("com/evghenii/images/goldman_down.png"));
-        super.setIconUp(getImageIcon("com/evghenii/images/goldman_up.png"));
-        super.setIconLeft(getImageIcon("com/evghenii/images/goldman_left.png"));
-        super.setIconRight(getImageIcon("com/evghenii/images/goldman_right.png"));
+        super.setIconDown(getImageIcon("/com/evghenii/images/goldman_down.png"));
+        super.setIconUp(getImageIcon("/com/evghenii/images/goldman_up.png"));
+        super.setIconLeft(getImageIcon("/com/evghenii/images/goldman_left.png"));
+        super.setIconRight(getImageIcon("/com/evghenii/images/goldman_right.png"));
 
         super.setImageIcon(super.getIconUp());
 

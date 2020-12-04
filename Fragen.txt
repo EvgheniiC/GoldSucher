@@ -32,3 +32,5 @@ public class Wall extends AbstractGameObject {
 
 
 2 get,set in Abstrac class это нормально?
+
+3 Enum  MAX(5) - что значит значения в скобках
