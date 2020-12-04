@@ -1,18 +1,19 @@
 package com.evghenii.abstractsGame;
 
 import com.evghenii.enums.GameObjectType;
-import com.evghenii.gameInterfaces.GameMap;
+import com.evghenii.mapInterface.GameMap;
 import com.evghenii.objects.Coordinate;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.EnumMap;
 import java.util.HashMap;
 
 public abstract class AbstractMapObject implements GameMap, Serializable {
 
     private static final long serialVersionUID = 1L;
-    private int widht;
+    private int width;
     private int height;
     private int limit;
     private String name;
@@ -35,12 +36,12 @@ public abstract class AbstractMapObject implements GameMap, Serializable {
     }
 
     @Override
-    public int getWidht() {
-        return widht;
+    public int getWidth() {
+        return width;
     }
 
-    public void setWidht(int widht) {
-        this.widht = widht;
+    public void setWidth(int width) {
+        this.width = width;
     }
 
     public void setHeight(int height) {
@@ -121,7 +122,6 @@ public abstract class AbstractMapObject implements GameMap, Serializable {
 
     public void addGameObject(AbstractGameObject gameObject) {
 
-
         ArrayList<AbstractGameObject> list = typeObject.get(gameObject.getType());
 
         if (list == null){
@@ -132,5 +132,14 @@ public abstract class AbstractMapObject implements GameMap, Serializable {
 
         gameObjects.put(gameObject.getCoordinate(),gameObject);
         typeObject.put(gameObject.getType(),list);
+    }
+
+
+    public ArrayList<AbstractGameObject> getGameObjects(GameObjectType type) {
+        return typeObject.get(type);
+    }
+
+    public Collection<AbstractGameObject> getAllGameObjects() {
+        return gameObjects.values();
     }
 }

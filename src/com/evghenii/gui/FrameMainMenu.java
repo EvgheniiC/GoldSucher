@@ -1,12 +1,16 @@
 
 package com.evghenii.gui;
 
+import com.evghenii.enums.LocationType;
+import com.evghenii.mapInterface.mapsObjects.JTableGameMap;
+
 public class FrameMainMenu extends javax.swing.JFrame {
 
-    private FrameGame frameGame = new FrameGame();
+    private FrameGame frameGame;
     private FrameStat frameStat = new FrameStat();
     private FrameSavedGames frameLoadGame = new FrameSavedGames();
-    
+
+    private JTableGameMap gameMap = new JTableGameMap(LocationType.FS,"game.map");
 
     public FrameMainMenu() {
         initComponents();
@@ -132,6 +136,10 @@ public class FrameMainMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnNewGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNewGameActionPerformed
+        if (frameGame == null){
+            frameGame = new FrameGame();
+        }
+        frameGame.setMap(gameMap);
         frameGame.showFrame(this);
     }//GEN-LAST:event_jbtnNewGameActionPerformed
 

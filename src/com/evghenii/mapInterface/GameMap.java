@@ -1,14 +1,13 @@
-package com.evghenii.gameInterfaces;
+package com.evghenii.mapInterface;
 
+//create card
 public interface GameMap {
-
-    boolean drawMap();
 
     int getTimeLimit();
 
     int getHeight();
 
-    int getWidht();
+    int getWidth();
 
     boolean loadMap(Object o);
 

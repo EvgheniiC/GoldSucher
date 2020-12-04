@@ -13,7 +13,7 @@ public abstract class AbstractGameObject implements StaticObject {
 
     private GameObjectType gameObjactType;
 
-    private ImageIcon imageIcon = getImageIcon("com/evghenii/images/noicon.png");// image by default
+    private ImageIcon imageIcon = getImageIcon("/com/evghenii/images/noicon.png");// image by default
 
     protected AbstractGameObject() {
     }

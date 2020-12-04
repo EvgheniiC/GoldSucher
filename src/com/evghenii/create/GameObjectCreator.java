@@ -20,7 +20,7 @@ public class GameObjectCreator {
         AbstractGameObject obj = null;
 
         switch (type) {
-            case NOTHINC: {
+            case NOTHING: {
                 obj = new Emptiness(coordinate);
                 break;
             }

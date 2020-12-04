@@ -16,11 +16,6 @@ import java.util.logging.Logger;
 public class FileSystemGameMap extends AbstractMapObject {
 
     @Override
-    public boolean drawMap() {
-        return false;
-    }
-
-    @Override
     public boolean loadMap(Object sourse) {
 
         File file = new File(sourse.toString());
@@ -39,7 +34,7 @@ public class FileSystemGameMap extends AbstractMapObject {
             setName(str.split(",")[0]);
 
             setLimit(Integer.valueOf(str.split(",")[1]).intValue());
-            setWidht(Integer.valueOf(str.split(",")[2]).intValue());
+            setWidth(Integer.valueOf(str.split(",")[2]).intValue());
 
             int y = 0; // номер строки в массиве
             int x = 0; // номер столбца в массиве
