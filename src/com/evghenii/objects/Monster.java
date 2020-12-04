@@ -4,9 +4,9 @@ import com.evghenii.abstractsGame.AbstractGameObject;
 import com.evghenii.abstractsGame.AbstractMovingObject;
 import com.evghenii.enums.GameObjectType;
 
-public class MonsterSingelton extends AbstractMovingObject {
+public class Monster extends AbstractMovingObject {
 
-    public MonsterSingelton(Coordinate coordinate) {
+    public Monster(Coordinate coordinate) {
         super.setGameObjactType(GameObjectType.MONSTER);
         super.setCoordinate(coordinate);
 

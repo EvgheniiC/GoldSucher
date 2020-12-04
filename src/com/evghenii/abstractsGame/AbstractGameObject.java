@@ -1,10 +1,11 @@
 package com.evghenii.abstractsGame;
 
 import com.evghenii.enums.GameObjectType;
-import com.evghenii.gameInterface.StaticObject;
+import com.evghenii.gameInterfaces.StaticObject;
 import com.evghenii.objects.Coordinate;
 
 import javax.swing.*;
+import java.util.Objects;
 
 public abstract class AbstractGameObject implements StaticObject {
 
@@ -46,5 +47,27 @@ public abstract class AbstractGameObject implements StaticObject {
 
     public void setGameObjactType(GameObjectType gameObjactType) {
         this.gameObjactType = gameObjactType;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AbstractGameObject that = (AbstractGameObject) o;
+        return Objects.equals(coordinate, that.coordinate) &&
+                gameObjactType == that.gameObjactType;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(coordinate, gameObjactType);
+    }
+
+    @Override
+    public String toString() {
+        return "AbstractGameObject{" +
+                "coordinate=" + coordinate +
+                ", gameObjactType=" + gameObjactType +
+                '}';
     }
 }

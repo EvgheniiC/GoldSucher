@@ -1,4 +1,4 @@
-package com.evghenii.gameInterface;
+package com.evghenii.gameInterfaces;
 
 import com.evghenii.abstractsGame.AbstractGameObject;
 import com.evghenii.enums.MovingDirection;

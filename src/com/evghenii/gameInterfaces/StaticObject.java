@@ -1,4 +1,4 @@
-package com.evghenii.gameInterface;
+package com.evghenii.gameInterfaces;
 
 import com.evghenii.enums.GameObjectType;
 import com.evghenii.objects.Coordinate;

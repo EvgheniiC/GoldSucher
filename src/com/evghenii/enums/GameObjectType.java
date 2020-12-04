@@ -9,7 +9,7 @@ public enum GameObjectType implements Serializable {
     EXIT(3),
     WALL(2),
     GOLDMAN(1),
-    EMPTINESS(-1);
+    NOTHINC(-1);
 
     private int indexOfPriority;
 

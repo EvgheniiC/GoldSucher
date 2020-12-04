@@ -1,7 +1,7 @@
 package com.evghenii.abstractsGame;
 
 import com.evghenii.enums.MovingDirection;
-import com.evghenii.gameInterface.MovingObjects;
+import com.evghenii.gameInterfaces.MovingObjects;
 
 import javax.swing.*;
 

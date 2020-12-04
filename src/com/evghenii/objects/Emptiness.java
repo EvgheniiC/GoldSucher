@@ -7,7 +7,7 @@ public class Emptiness extends AbstractGameObject {
 
     public Emptiness(Coordinate coordinate) {
         super.setImageIcon(null);
-        super.setGameObjactType(GameObjectType.EMPTINESS);
+        super.setGameObjactType(GameObjectType.NOTHINC);
         super.setCoordinate(coordinate);
     }
 }
