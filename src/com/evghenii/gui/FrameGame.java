@@ -1,28 +1,33 @@
 package com.evghenii.gui;
 
-import com.evghenii.abstracts.AbstractGameObject;
-import com.evghenii.abstracts.AbstractMovingObject;
+import com.evghenii.enums.ActionResult;
 import com.evghenii.enums.GameObjectType;
 import com.evghenii.enums.MovingDirection;
-import com.evghenii.interfaces.gamemap.DrawableMap;
+import com.evghenii.gamemap.facades.GameFacade;
+import com.evghenii.gameobjects.abstracts.AbstractGameObject;
+import com.evghenii.listeners.interfaces.CloseFrameListener;
+import com.evghenii.listeners.interfaces.MoveResultListener;
+import com.evghenii.utils.MessageManager;
 
+import javax.swing.*;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyListener;
 
-public class FrameGame extends BaseChildFrame implements ActionListener, KeyListener {
 
-    private DrawableMap gameMap; // передаем объект карты, которая умеет себя рисовать
+public class FrameGame extends ConfirmCloseFrame implements ActionListener, MoveResultListener {
 
-    public FrameGame() {
+    private static final String MESSAGE_SAVE = "Сохранить игру перед выходом?";
+    private static final String MESSAGE_SAVED_SUCCESS = "Игра сохранена!";
+    private static final String MESSAGE_DIE = "Вы проиграли!";
+    private static final String MESSAGE_WIN = "Вы выиграли! Количество очков:";
+    private FrameStat frameStat;
+    private GameFacade gameFacade;
+
+    /**
+     * Creates new form FrameGame
+     */
+    public FrameGame(GameFacade resultFacade) {
+        this.gameFacade = resultFacade;
         initComponents();
-    }
-
-    public void setMap(DrawableMap gameMap) {
-        this.gameMap = gameMap;
-        gameMap.drawMap();
-
-        jPanelMap.removeAll();
-        jPanelMap.add(gameMap.getMapComponent());
     }
 
     /**
@@ -49,33 +54,32 @@ public class FrameGame extends BaseChildFrame implements ActionListener, KeyList
         jlabelTurnsLeft = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jmenuFile = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        jmenuSave = new javax.swing.JMenuItem();
+        jmenuExit = new javax.swing.JMenuItem();
+        jmenuService = new javax.swing.JMenu();
+        jmenuStat = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setName("FrameGame"); // NOI18N
-        addKeyListener(this);
 
         jPanelMap.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanelMap.setLayout(new java.awt.BorderLayout());
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jbtnLeft.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/evghenii/images/left.png"))); // NOI18N
+        jbtnLeft.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ru/javabegin/training/goldman/images/left.png"))); // NOI18N
         jbtnLeft.setName("jbtnLeft"); // NOI18N
         jbtnLeft.addActionListener(this);
 
-        jbtnUp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/evghenii/images/up.png"))); // NOI18N
+        jbtnUp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ru/javabegin/training/goldman/images/up.png"))); // NOI18N
         jbtnUp.setName("jbtnUp"); // NOI18N
         jbtnUp.addActionListener(this);
 
-        jbtnRight.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/evghenii/images/right.png"))); // NOI18N
+        jbtnRight.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ru/javabegin/training/goldman/images/right.png"))); // NOI18N
         jbtnRight.setName("jbtnRight"); // NOI18N
         jbtnRight.addActionListener(this);
 
-        jbtnDown.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/evghenii/images/down.png"))); // NOI18N
+        jbtnDown.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ru/javabegin/training/goldman/images/down.png"))); // NOI18N
         jbtnDown.setName("jbtnDown"); // NOI18N
         jbtnDown.addActionListener(this);
 
@@ -86,13 +90,13 @@ public class FrameGame extends BaseChildFrame implements ActionListener, KeyList
         jlabelTurnsLeftText.setToolTipText("");
         jlabelTurnsLeftText.setName("jlabelTurnsLeftText"); // NOI18N
 
-        jbtnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/evghenii/images/save.png"))); // NOI18N
+        jbtnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ru/javabegin/training/goldman/images/save.png"))); // NOI18N
         jbtnSave.setText("Сохранить");
         jbtnSave.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jbtnSave.setName("jbtnUp"); // NOI18N
         jbtnSave.addActionListener(this);
 
-        jbtnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/evghenii/images/exit.png"))); // NOI18N
+        jbtnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ru/javabegin/training/goldman/images/exit.png"))); // NOI18N
         jbtnExit.setText("Выйти из игры");
         jbtnExit.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jbtnExit.setName("jbtnUp"); // NOI18N
@@ -177,28 +181,31 @@ public class FrameGame extends BaseChildFrame implements ActionListener, KeyList
                                 .addContainerGap()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(jPanelMap, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
-                                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE))
+                                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 310, Short.MAX_VALUE))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jmenuFile.setText("Файл");
         jmenuFile.setName("jmenuFile"); // NOI18N
 
-        jMenuItem1.setText("Сохранить игру");
-        jmenuFile.add(jMenuItem1);
+        jmenuSave.setText("Сохранить игру");
+        jmenuSave.addActionListener(this);
+        jmenuFile.add(jmenuSave);
 
-        jMenuItem2.setText("Выйти из игры");
-        jMenuItem2.setActionCommand("Выйти");
-        jmenuFile.add(jMenuItem2);
+        jmenuExit.setText("Выйти из игры");
+        jmenuExit.setActionCommand("Выйти");
+        jmenuExit.addActionListener(this);
+        jmenuFile.add(jmenuExit);
 
         jMenuBar1.add(jmenuFile);
 
-        jMenu2.setText("Сервис");
+        jmenuService.setText("Сервис");
 
-        jMenuItem3.setText("Статистика");
-        jMenu2.add(jMenuItem3);
+        jmenuStat.setText("Статистика");
+        jmenuStat.addActionListener(this);
+        jmenuService.add(jmenuStat);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(jmenuService);
 
         setJMenuBar(jMenuBar1);
 
@@ -215,8 +222,8 @@ public class FrameGame extends BaseChildFrame implements ActionListener, KeyList
                                 .addContainerGap())
         );
 
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width - 534) / 2, (screenSize.height - 397) / 2, 534, 397);
+        setSize(new java.awt.Dimension(534, 397));
+        setLocationRelativeTo(null);
     }
 
     // Code for dispatching events from components to event handlers.
@@ -234,56 +241,70 @@ public class FrameGame extends BaseChildFrame implements ActionListener, KeyList
             FrameGame.this.jbtnSaveActionPerformed(evt);
         } else if (evt.getSource() == jbtnExit) {
             FrameGame.this.jbtnExitActionPerformed(evt);
+        } else if (evt.getSource() == jmenuExit) {
+            FrameGame.this.jmenuExitActionPerformed(evt);
+        } else if (evt.getSource() == jmenuStat) {
+            FrameGame.this.jmenuStatActionPerformed(evt);
+        } else if (evt.getSource() == jmenuSave) {
+            FrameGame.this.jmenuSaveActionPerformed(evt);
         }
-    }
-
-    public void keyPressed(java.awt.event.KeyEvent evt) {
-        if (evt.getSource() == FrameGame.this) {
-            FrameGame.this.formKeyPressed(evt);
-        }
-    }
-
-    public void keyReleased(java.awt.event.KeyEvent evt) {
-    }
-
-    public void keyTyped(java.awt.event.KeyEvent evt) {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnUpActionPerformed
-        moveGoldMan(MovingDirection.UP, GameObjectType.GOLDMAN);
+        gameFacade.moveObject(MovingDirection.UP, GameObjectType.GOLDMAN);
     }//GEN-LAST:event_jbtnUpActionPerformed
 
     private void jbtnLeftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnLeftActionPerformed
-        moveGoldMan(MovingDirection.LEFT, GameObjectType.GOLDMAN);
+        gameFacade.moveObject(MovingDirection.LEFT, GameObjectType.GOLDMAN);
     }//GEN-LAST:event_jbtnLeftActionPerformed
 
     private void jbtnDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDownActionPerformed
-        moveGoldMan(MovingDirection.DOWN, GameObjectType.GOLDMAN);
+        gameFacade.moveObject(MovingDirection.DOWN, GameObjectType.GOLDMAN);
     }//GEN-LAST:event_jbtnDownActionPerformed
 
     private void jbtnRightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnRightActionPerformed
-        moveGoldMan(MovingDirection.RIGHT, GameObjectType.GOLDMAN);
+        gameFacade.moveObject(MovingDirection.RIGHT, GameObjectType.GOLDMAN);
     }//GEN-LAST:event_jbtnRightActionPerformed
 
     private void jbtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSaveActionPerformed
-        // TODO add your handling code here:
+        saveMap();
     }//GEN-LAST:event_jbtnSaveActionPerformed
 
     private void jbtnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnExitActionPerformed
-        // TODO add your handling code here:
+        if (allowExit()) {
+            closeFrame();
+        }
     }//GEN-LAST:event_jbtnExitActionPerformed
 
-    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-        System.out.println(evt.getKeyCode());
-    }//GEN-LAST:event_formKeyPressed
+    private void jmenuStatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmenuStatActionPerformed
+        gameFacade.stopGame();
+        if (frameStat == null) {
+            frameStat = new FrameStat(new CloseFrameListener() {
+                @Override
+                public void onCloseAction() {
+                    gameFacade.startGame();
+                }
+            });
 
+        }
+
+        frameStat.setList(gameFacade.getScoreSaver().getScoreList());
+        frameStat.showFrame(this);
+
+    }//GEN-LAST:event_jmenuStatActionPerformed
+
+    private void jmenuExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmenuExitActionPerformed
+        if (allowExit()) {
+            closeFrame();
+        }
+    }//GEN-LAST:event_jmenuExitActionPerformed
+
+    private void jmenuSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmenuSaveActionPerformed
+        saveMap();
+    }//GEN-LAST:event_jmenuSaveActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanelMap;
@@ -297,15 +318,136 @@ public class FrameGame extends BaseChildFrame implements ActionListener, KeyList
     private javax.swing.JLabel jlabelScoreText;
     private javax.swing.JLabel jlabelTurnsLeft;
     private javax.swing.JLabel jlabelTurnsLeftText;
+    private javax.swing.JMenuItem jmenuExit;
     private javax.swing.JMenu jmenuFile;
+    private javax.swing.JMenuItem jmenuSave;
+    private javax.swing.JMenu jmenuService;
+    private javax.swing.JMenuItem jmenuStat;
     // End of variables declaration//GEN-END:variables
 
-    private void moveGoldMan(MovingDirection movingDirection, GameObjectType gameObjectType) {
-        AbstractGameObject gameObject = gameMap.getGameMap().getGameObjects(gameObjectType).get(0);
+    @Override
+    protected void showFrame(JFrame parent) {
+        initMap();
+        super.showFrame(parent);
+    }
 
-        if (gameObject instanceof AbstractMovingObject) {// дорогостоящая операция
-            ((AbstractMovingObject) gameObject).move(movingDirection);
-            gameMap.drawMap();
+    private void initMap() {
+        gameFacade.addMoveListener(this);
+
+        jPanelMap.removeAll();
+        jPanelMap.add(gameFacade.getMap());
+
+        jlabelTurnsLeft.setText(String.valueOf(gameFacade.getTurnsLeftCount()));
+        jlabelScore.setText(String.valueOf(gameFacade.getTotalScore()));
+
+        gameFacade.startGame();
+    }
+
+    @Override
+    public void notifyActionResult(ActionResult actionResult, AbstractGameObject movingObject, AbstractGameObject targetObject) {
+
+        if (movingObject.getType().equals(GameObjectType.GOLDMAN)) {
+            checkGoldManActions(actionResult);
         }
+
+        checkCommonActions(actionResult);
+        gameFacade.updateObjects(movingObject, targetObject);
+
+    }
+
+    private void checkGoldManActions(ActionResult actionResult) {
+        switch (actionResult) {
+            case MOVE: {
+
+                jlabelTurnsLeft.setText(String.valueOf(gameFacade.getTurnsLeftCount()));
+
+                if (gameFacade.getTurnsLeftCount() == 0) {
+                    closeFrame(MESSAGE_DIE);
+                }
+
+                break;
+            }
+
+            case WIN: {
+                closeFrame(MESSAGE_WIN + gameFacade.getTotalScore());
+                gameFacade.saveScore();
+            }
+
+
+            case COLLECT_TREASURE: {
+                jlabelScore.setText(String.valueOf(gameFacade.getTotalScore()));
+                jlabelTurnsLeft.setText(String.valueOf(gameFacade.getTurnsLeftCount()));
+                break;
+            }
+
+            case HIDE_IN_TREE: {
+                jlabelTurnsLeft.setText(String.valueOf(gameFacade.getTurnsLeftCount()));
+            }
+
+        }
+
+    }
+
+    private void checkCommonActions(ActionResult actionResult) {
+        switch (actionResult) {
+
+            case DIE: {
+                closeFrame(MESSAGE_DIE);
+                break;
+            }
+        }
+
+    }
+
+    @Override
+    protected boolean acceptCloseAction() {
+        return allowExit();
+    }
+
+    @Override
+    protected void closeFrame() {
+        gameFacade.stopGame();
+        super.closeFrame();
+    }
+
+    private void closeFrame(final String message) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                MessageManager.showInformMessage(null, message);
+            }
+        });
+
+        closeFrame();
+    }
+
+    private boolean allowExit() {
+        gameFacade.stopGame();
+
+
+        int result = MessageManager.showYesNoCancelMessage(this, MESSAGE_SAVE);
+        switch (result) {
+            case JOptionPane.YES_OPTION: {
+                gameFacade.saveMap();
+                MessageManager.showInformMessage(this, MESSAGE_SAVED_SUCCESS);
+                break;
+            }
+            case JOptionPane.NO_OPTION: {
+                closeFrame();
+                break;
+            }
+            case JOptionPane.CANCEL_OPTION: {
+                gameFacade.startGame();
+                return false;
+            }
+
+        }
+
+        return true;
+    }
+
+    private void saveMap() {
+        gameFacade.saveMap();
+        closeFrame(MESSAGE_SAVED_SUCCESS);
     }
 }

@@ -1,8 +1,8 @@
-package com.evghenii.objects.creators;
+package com.evghenii.creators;
 
-import com.evghenii.abstracts.AbstractGameObject;
 import com.evghenii.enums.GameObjectType;
-import com.evghenii.objects.*;
+import com.evghenii.gameobjects.abstracts.AbstractGameObject;
+import com.evghenii.gameobjects.impl.*;
 
 public class GameObjectCreator {
 
@@ -45,6 +45,11 @@ public class GameObjectCreator {
 
             case GOLDMAN: {
                 obj = new GoldMan(coordinate);
+                break;
+            }
+                
+            case TREE:{
+                obj = new Tree(coordinate);
                 break;
             }
 
