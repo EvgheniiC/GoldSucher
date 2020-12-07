@@ -1,11 +1,10 @@
-package com.evghenii.objects.gui.maps;
+package com.evghenii.gamemap.impl;
 
-import com.evghenii.abstracts.AbstractGameObject;
+import com.evghenii.gameobjects.abstracts.AbstractGameObject;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
-
 
 public class ImageRenderer extends DefaultTableCellRenderer {
 
@@ -13,7 +12,7 @@ public class ImageRenderer extends DefaultTableCellRenderer {
     
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
-            boolean hasFocus, int row, int column) {
+                                                   boolean hasFocus, int row, int column) {
 
         lbl.setText(null);
         lbl.setIcon(((AbstractGameObject) value).getIcon());
