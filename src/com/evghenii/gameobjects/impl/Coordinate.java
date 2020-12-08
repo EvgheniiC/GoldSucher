@@ -1,4 +1,4 @@
-package com.evghenii.objects;
+package com.evghenii.gameobjects.impl;
 
 import java.io.Serializable;
 
@@ -61,4 +61,5 @@ public class Coordinate implements Serializable {
     public String toString() {
         return "x=" + x + ", y=" + y;
     }
+    
 }

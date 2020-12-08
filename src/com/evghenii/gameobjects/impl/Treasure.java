@@ -1,8 +1,7 @@
-package com.evghenii.objects;
+package com.evghenii.gameobjects.impl;
 
-import com.evghenii.abstracts.AbstractGameObject;
 import com.evghenii.enums.GameObjectType;
-
+import com.evghenii.gameobjects.abstracts.AbstractGameObject;
 
 /**
  * класс отвечает за работу объекта TREASURE
@@ -12,7 +11,7 @@ public class Treasure extends AbstractGameObject {
     public Treasure(Coordinate coordinate) {
         super.setType(GameObjectType.TREASURE);
         super.setCoordinate(coordinate);
-        super.setIcon(getImageIcon("/com/evghenii/images/gold.png"));
+        super.saveIcon("/com/evghenii/images/gold.png");
     }
     
     

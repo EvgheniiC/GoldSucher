@@ -1,23 +1,24 @@
-package com.evghenii.abstracts;
-
+package com.evghenii.gameobjects.abstracts;
 
 import com.evghenii.enums.GameObjectType;
-import com.evghenii.interfaces.gameobjects.StaticObject;
-import com.evghenii.objects.Coordinate;
+import com.evghenii.gameobjects.impl.Coordinate;
+import com.evghenii.gameobjects.interfaces.StaticObject;
 
-import javax.swing.*;
+import java.io.Serializable;
+import java.util.EnumMap;
 import java.util.Objects;
+import javax.swing.ImageIcon;
 
 /**
  * класс, который отвечает за любой объект, созданный в игре. задает все общие
  * характеристики объектов в игре
  */
-public abstract class AbstractGameObject implements StaticObject {
+public abstract class AbstractGameObject implements StaticObject, Serializable {
 
+    protected static EnumMap<GameObjectType, ImageIcon> staticImages = new EnumMap<>(GameObjectType.class);// карта иконок для всех направлений
     private GameObjectType type;// все объекты будут иметь тип
     private Coordinate coordinate;// все объекты будут иметь координаты положения
-
-    private ImageIcon icon = getImageIcon("/com/evghenii/images/noicon.png");// изображение по-умолчанию
+    private ImageIcon icon = getImageIcon("/com/evghenii/noicon.png");// изображение по-умолчанию
 
     protected AbstractGameObject() {// частый вопрос - нужен ли public конструктор в абстрактном классе
     }
@@ -30,7 +31,6 @@ public abstract class AbstractGameObject implements StaticObject {
     public ImageIcon getIcon() {
         return icon;
     }
-
 
     protected ImageIcon getImageIcon(String path) {
         return new ImageIcon(getClass().getResource(path));
@@ -56,9 +56,9 @@ public abstract class AbstractGameObject implements StaticObject {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 37 * hash + (this.type != null ? this.type.hashCode() : 0);
-        hash = 37 * hash + Objects.hashCode(this.coordinate);
+        int hash = 5;
+        hash = 43 * hash + Objects.hashCode(this.type);
+        hash = 43 * hash + Objects.hashCode(this.coordinate);
         return hash;
     }
 
@@ -71,12 +71,19 @@ public abstract class AbstractGameObject implements StaticObject {
             return false;
         }
         final AbstractGameObject other = (AbstractGameObject) obj;
+        if (this.type != other.type) {
+            return false;
+        }
+        if (!Objects.equals(this.coordinate, other.coordinate)) {
+            return false;
+        }
         return true;
     }
 
-    @Override
-    public String toString() {
-        return super.toString();
+    protected void saveIcon(String path) {
+        if (staticImages.get(type) == null) {
+            staticImages.put(type, getImageIcon(path));
+        }
+        setIcon(staticImages.get(type));
     }
-
 }
