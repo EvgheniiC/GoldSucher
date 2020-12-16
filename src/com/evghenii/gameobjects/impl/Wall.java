@@ -9,8 +9,6 @@ import com.evghenii.gameobjects.abstracts.AbstractGameObject;
 public class Wall extends AbstractGameObject {
 
     public Wall(Coordinate coordinate) {
-        super.setType(GameObjectType.WALL);
-        super.setCoordinate(coordinate);
-        super.saveIcon("/com/evghenii/images/wall.png");
+        super(GameObjectType.WALL, coordinate, "/com/evghenii/images/wall.png");
     }
 }
