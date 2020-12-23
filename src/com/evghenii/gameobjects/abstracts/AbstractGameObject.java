@@ -20,6 +20,12 @@ public abstract class AbstractGameObject implements StaticObject, Serializable {
     private Coordinate coordinate;// все объекты будут иметь координаты положения
     private ImageIcon icon = getImageIcon("/com/evghenii/noicon.png");// изображение по-умолчанию
 
+    public AbstractGameObject(GameObjectType type, Coordinate coordinate, String icon) {
+        this.type = type;
+        this.coordinate = coordinate;
+        this.icon = new ImageIcon(icon);
+    }
+
     protected AbstractGameObject() {// частый вопрос - нужен ли public конструктор в абстрактном классе
     }
 
